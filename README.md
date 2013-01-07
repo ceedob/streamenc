@@ -15,4 +15,9 @@ the third is the filename to encrypt
 
 The encrypted version is saved to a file of the same name with a .enc extension appended.
 
-To decrypt, run the program again with the exact same passphrase and hash-count and the plaintext file will have a .enc.enc extension.
+To decrypt, run the program again with the exact same passphrase and hash-count and the plaintext file will have a .plaintext extension.
+
+To-Do
+=====
++ Adapt this method for streaming with a socket
++ Passphrase verification check

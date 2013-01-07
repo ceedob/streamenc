@@ -1,6 +1,10 @@
+#!/usr/bin/python
 import sys, hashlib
-password = str(sys.argv[1])
-preiterations = int(sys.argv[2])
+if "-h" in sys.argv or len(sys.argv)==1:
+	print """Streamenc file encryption:\nUsage: streamenc <file>"""
+	exit()
+password = raw_input("password:   ")
+preiterations = int(raw_input("hash loops: "))
 
 pad = hashlib.sha512(password)
 
@@ -9,14 +13,29 @@ for i in range(preiterations):
 	newpad = hashlib.sha512(pad.digest())
 	pad = newpad
 	
-char = 0
-plaintext=open(sys.argv[3],'r')
-cyphertext=open(sys.argv[3]+".enc",'wb')
-for read in plaintext.readlines():
+
+plaintext=open(sys.argv[1],'r')
+if sys.argv[1][-4:] != ".enc":
+	filename = sys.argv[1]+".enc"
+else:
+	filename = sys.argv[1][:-4]+".plaintext"
+cyphertext=open(filename,'wb')
+
+text = plaintext.read()
+
+def runoperation(password, loops, string):
+	output = ""
 	curtext = ""
-	for c in read:
+	char = 0
+	for c in string:
 		if char >= 63:
 			pad.update(pad.digest())
 			char = 0
-		cyphertext.write(chr(ord(c) ^ ord(pad.digest()[char])))
+		output+=(chr(ord(c) ^ ord(pad.digest()[char])))
 		char += 1
+	return output
+
+	
+
+cyphertext.write(runoperation(password, preiterations, text))
+
