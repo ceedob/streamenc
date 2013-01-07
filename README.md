@@ -8,7 +8,9 @@ How-to
 
 The program is run from the command line with three(3) arguments: 
 the first is the password/passphrase (you can use quotes to have spaces in your passphrase)
-the second is the number of times the password is hashed before its value is used, think of this like a salt value however
+
+the second is the number of times the password is hashed before its value is used, think of this like a salt value however a higher value will take slightly longer. The purpose of this is to prevent the use of hash table attacks to find the value of the random pad.
+
 the third is the filename to encrypt
 
 The encrypted version is saved to a file of the same name with a .enc extension appended.
